@@ -1,27 +1,43 @@
 BoxLayout:
     BoxLayout:
+        size_hint_x: 0.4
         orientation: 'vertical'
         Button:
-            text: 'X'
+            text: 'List Items'
         Button:
-            text: 'O'
+            text: 'Hire Items'
         Button:
-            text: 'X'
+            text: 'Return Items'
         Button:
-            text: 'O'
+            text: 'Confirm'
         Button:
-            text: 'X'
+            text: 'Add New Item'
+
+
+
+    BoxLayout:
+        orientation: 'vertical'
         Button:
+            text: 'Rusty Bucket'
+        Button:
+            text: 'Thermomix'
+        Button:
+            text: 'Guitar'
+
+
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            text: 'Golf Cart'
+        Button:
+            text: 'AeroPress'
+        Label:
             text: ''
-        Button:
-            text: 'O'
-        Button:
-            text: ''
-        Button:
-            text: 'X'
 
         Label:
             text_size: self.size
-            halign: 'left'
             size_hint_y: 0.3
-            text: 'game over...'
+            text: 'Choose action from the left menu, then select items on the right'
+
+
+
