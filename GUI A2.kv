@@ -7,6 +7,7 @@ BoxLayout:
             orientation: 'vertical'
             Button:
                 text: 'List Items'
+                on_press: app.list_items()
             Button:
                 text: 'Hire Items'
             Button:
@@ -25,22 +26,22 @@ BoxLayout:
                     id: rusty_bucket
                     on_press: app.item_rustyBucket()
                 Button:
-                    text: 'Thermomix(TM-31), $25.5 is out'
+                    text: 'Thermomix'
                     id: thermo_mix
                     on_press: app.item_thermomix()
                 Button:
-                    text: 'Guitar(JTV-59), $12.95 is in'
+                    text: 'Guitar'
                     on_press: app.item_Guitar()
                     id: guitar
 
             BoxLayout:
                 orientation: 'vertical'
                 Button:
-                    text: 'Golf Cart(Tesla powered 250 turbo), $195 is out'
+                    text: 'Golf Cart'
                     on_press: app.item_golfCart()
                     id: golf_cart
                 Button:
-                    text: 'AeroPress(great coffee maker), $5 is in'
+                    text: 'AeroPress'
                     on_press: app.item_AeroPress()
                     id: aero_press
                 Label:
