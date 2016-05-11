@@ -1,40 +1,47 @@
 BoxLayout:
+    orientation: 'vertical'
     BoxLayout:
-        size_hint_x: 0.4
-        orientation: 'vertical'
-        Button:
-            text: 'List Items'
-        Button:
-            text: 'Hire Items'
-        Button:
-            text: 'Return Items'
-        Button:
-            text: 'Confirm'
-        Button:
-            text: 'Add New Item'
+        orientation: 'horizontal'
+        BoxLayout:
+            size_hint_x: 0.4
+            orientation: 'vertical'
+            Button:
+                text: 'List Items'
+            Button:
+                text: 'Hire Items'
+            Button:
+                text: 'Return Items'
+            Button:
+                text: 'Confirm'
+            Button:
+                text: 'Add New Item'
+        BoxLayout:
+            BoxLayout:
+                orientation: 'vertical'
+                Button:
+                    text: 'Rusty Bucket'
+                    id: rusty_bucket
+                    on_press: app.handle_item()
+                Button:
+                    text: 'Thermomix'
+                Button:
+                    text: 'Guitar'
 
+
+            BoxLayout:
+                orientation: 'vertical'
+                Button:
+                    text: 'Golf Cart'
+                Button:
+                    text: 'AeroPress'
+                Label:
+                    text: ''
     BoxLayout:
         orientation: 'vertical'
-        Button:
-            text: 'Rusty Bucket'
-        Button:
-            text: 'Thermomix'
-        Button:
-            text: 'Guitar'
-
-
-    BoxLayout:
-        orientation: 'vertical'
-        Button:
-            text: 'Golf Cart'
-        Button:
-            text: 'AeroPress'
-        Label:
-            text: ''
-
+        size_hint_y: 0.1
         Label:
             text_size: self.size
-            size_hint_y: 0.3
+            id: action_label
             text: 'Choose action from the left menu, then select items on the right'
 
 

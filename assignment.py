@@ -8,6 +8,8 @@ class ExperimentHire(App):
         self.root = Builder.load_file('assignment.kv')
         return self.root
 
+    def handle_item(self):
+
 
 # create and start the App running
 ExperimentHire().run()
