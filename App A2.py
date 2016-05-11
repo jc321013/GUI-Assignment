@@ -18,37 +18,56 @@ class ExperimentHire(App):
         return self.root
 
     def list_items(self):
+        rusty_bucket = 'Rusty Bucket(40L bucket-quite rusty), $0.00 is in'
+        thermomix = 'Thermomix(TM-31), $25.5 is out'
+        golf_cart = 'Golf Cart(Tesla powered 250 turbo), $195 is out'
+        aero_press = 'AeroPress(great coffee maker), $5 is in'
+        guitar = 'Guitar(JTV-59), $12.95 is in'
         self.root.ids.list_items.text = "List Items"
-
-    def item_rustyBucket(self):
-        name = 'Rusty Bucket(40L bucket-quite rusty), $0.00 is in'
         self.root.ids.rusty_bucket.text = 'Rusty Bucket'
-        self.root.ids.action_label.text = str(name)
-        return name
-
-    def item_thermomix(self):
-        name = 'Thermomix(TM-31), $25.5 is out'
         self.root.ids.thermo_mix.text = 'Thermomix'
-        self.root.ids.action_label.text = str(name)
-        return name
-
-    def item_golfCart(self):
-        name = 'Golf Cart(Tesla powered 250 turbo), $195 is out'
         self.root.ids.golf_cart.text = 'Golf Cart'
-        self.root.ids.action_label.text = str(name)
-        return name
-
-    def item_AeroPress(self):
-        name = 'AeroPress(great coffee maker), $5 is in'
         self.root.ids.aero_press.text = 'Aero Press'
-        self.root.ids.action_label.text = str(name)
-        return name
-
-    def item_Guitar(self):
-        name = 'Guitar(JTV-59), $12.95 is in'
         self.root.ids.guitar.text = 'Guitar'
-        self.root.ids.action_label.text = str(name)
-        return name
+        # self.root.ids.action_label.text =
+
+
+
+    #
+    #
+    #
+    #
+    #
+    #
+    # def item_rustyBucket(self):
+    #     name = 'Rusty Bucket(40L bucket-quite rusty), $0.00 is in'
+    #     self.root.ids.rusty_bucket.text = 'Rusty Bucket'
+    #     self.root.ids.action_label.text = str(name)
+    #     return name
+    #
+    # def item_thermomix(self):
+    #     name = 'Thermomix(TM-31), $25.5 is out'
+    #     self.root.ids.thermo_mix.text = 'Thermomix'
+    #     self.root.ids.action_label.text = str(name)
+    #     return name
+    #
+    # def item_golfCart(self):
+    #     name = 'Golf Cart(Tesla powered 250 turbo), $195 is out'
+    #     self.root.ids.golf_cart.text = 'Golf Cart'
+    #     self.root.ids.action_label.text = str(name)
+    #     return name
+    #
+    # def item_AeroPress(self):
+    #     name = 'AeroPress(great coffee maker), $5 is in'
+    #     self.root.ids.aero_press.text = 'Aero Press'
+    #     self.root.ids.action_label.text = str(name)
+    #     return name
+    #
+    # def item_Guitar(self):
+    #     name = 'Guitar(JTV-59), $12.95 is in'
+    #     self.root.ids.guitar.text = 'Guitar'
+    #     self.root.ids.action_label.text = str(name)
+    #     return name
 
 
 
