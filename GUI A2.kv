@@ -11,6 +11,8 @@ BoxLayout:
                 on_press: app.list_items()
             Button:
                 text: 'Hire Items'
+                id: hire_item
+                on_press: app.hiring_item()
             Button:
                 text: 'Return Items'
             Button:
@@ -25,25 +27,25 @@ BoxLayout:
                 Button:
                     text: 'Rusty Bucket'
                     id: rusty_bucket
-                    on_press: app.list_items()
+                    on_press: app.item_rustyBucket()
                 Button:
                     text: 'Thermomix'
                     id: thermo_mix
-                    on_press: app.list_items()
+                    on_press: app.item_thermomix()
                 Button:
                     text: 'Guitar'
-                    on_press: app.list_items()
+                    on_press: app.item_Guitar()
                     id: guitar
 
             BoxLayout:
                 orientation: 'vertical'
                 Button:
                     text: 'Golf Cart'
-                    on_press: app.list_items()
+                    on_press: app.item_golfCart()
                     id: golf_cart
                 Button:
                     text: 'AeroPress'
-                    on_press: app.list_items()
+                    on_press: app.item_AeroPress()
                     id: aero_press
                 Label:
                     text: ''
