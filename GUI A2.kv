@@ -1,5 +1,55 @@
 BoxLayout:
     orientation: 'vertical'
+    id: mainBox
+    Popup:
+        id: popup
+        title: "Add Item"
+        on_parent:
+            if self.parent == mainBox: self.parent.remove_widget(self)
+        BoxLayout:
+            id: inputs
+            orientation: 'vertical'
+            Label:
+                text: 'Item Name: '
+                size_hint_y: None
+                height: '48dp'
+            TextInput:
+                id: addedName
+                value: ''
+                size_hint_y: None
+                height: '48dp'
+                multiline: False
+                write_tab: False
+            Label:
+                text: 'Description: '
+                size_hint_y: None
+                height: '48dp'
+            TextInput:
+                id: addedNumber
+                value: ''
+                size_hint_y: None
+                height: '48dp'
+                multiline: False
+                write_tab: False
+            Label:
+                text: 'Price Per Day: '
+                size_hint_y: None
+                height: '48dp'
+            TextInput:
+                id: addedPrice
+                value: ''
+                size_hint_y: None
+                height: '48dp'
+                multiline: False
+                write_tab: False
+            Button:
+                text: 'Save Item'
+                on_release: app.press_save(addedName.text, addedNumber.text)
+            Button:
+                text: 'Cancel'
+                on_release: app.press_cancel()
+            Label:
+                text: app.status_text
     BoxLayout:
         orientation: 'horizontal'
         BoxLayout:
@@ -18,8 +68,9 @@ BoxLayout:
             Button:
                 text: 'Confirm'
             Button:
-                text: 'Add New Item'
-
+                id: addButton
+                text: 'Add New item'
+                on_release: app.press_add()
 
         BoxLayout:
             BoxLayout:
@@ -57,6 +108,3 @@ BoxLayout:
             text_size: self.size
             id: action_label
             text: 'Choose action from the left menu, then select items on the right'
-
-
-
