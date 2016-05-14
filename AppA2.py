@@ -20,21 +20,6 @@ class ExperimentHire(App, Item, ItemList):
         self.create_entry_buttons()
         return self.root
 
-
-
-    def hiring_item(self):
-        # in_file = open("items.csv", 'r', encoding='utf-8')
-        # item = ['Rusty Bucket', 'Golf Cart', 'Thermomix', 'AeroPress', 'Guitar']
-        # for item in in_file:
-        #     if item in in_file:
-        #         item = 'out'
-        #     else:
-        #         item = 'in'
-        label_display = 'Select available items to hire'
-        self.root.ids.hire_item.text = 'Hire Items'
-        self.root.ids.action_label.text = str(label_display)
-        return label_display
-
     def create_entry_buttons(self):
         for name in self.experimentHire:
             temp_button = Button(text=name)
@@ -43,13 +28,24 @@ class ExperimentHire(App, Item, ItemList):
 
     def press_entry(self, instance):
         name = instance.text
-        self.root.ids.action_label.text = "{} $ {} Per Day".format(name, self.experimentHire[name])
+        self.root.ids.action_label.text = "{}  {} Per Day".format(name, self.experimentHire[name])
 
     def press_add(self):
-        self.action_label = "Enter details for new Item"
+        self.root.ids.popup_label.text = "Enter details for new Item"
         self.root.ids.popup.open()
 
     def press_save(self, added_name, added_description, added_price):
+        label_display = "All fields must be completed"
+        price_label = "Must be a valid number"
+        if self.root.ids.addedName.text == "" and self.root.ids.addedDescription.text == "":
+            self.root.ids.popup_label.text = label_display
+            return label_display
+        if self.root.ids.addedPrice < 0:
+            self.root.ids.popup_label = price_label
+            return price_label
+
+
+
         self.experimentHire[added_name] = added_description, added_price
         self.root.ids.newItem.cols = len(self.experimentHire)
         temp_button = Button(text=added_name)
@@ -57,6 +53,7 @@ class ExperimentHire(App, Item, ItemList):
         self.root.ids.newItem.add_widget(temp_button)
         self.root.ids.popup.dismiss()
         self.clear_fields()
+
 
     def clear_fields(self):
         self.root.ids.addedName.text = ""
