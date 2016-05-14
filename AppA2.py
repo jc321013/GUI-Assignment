@@ -34,17 +34,18 @@ class ExperimentHire(App, Item, ItemList):
         self.root.ids.popup_label.text = "Enter details for new Item"
         self.root.ids.popup.open()
 
-    def press_save(self, added_name, added_description, added_price):
+    def press_save(self, added_name, added_description, added_price=int):
+        name = self.root.ids.addedName.text
+        description = self.root.ids.addedDescription.text
+        price = self.root.ids.addedPrice.text
         label_display = "All fields must be completed"
         price_label = "Must be a valid number"
-        if self.root.ids.addedName.text == "" and self.root.ids.addedDescription.text == "":
+        if name == "" and description == "" and price == "":
             self.root.ids.popup_label.text = label_display
             return label_display
-        if self.root.ids.addedPrice < 0:
-            self.root.ids.popup_label = price_label
+        if price != int(price) and price < 0:
+            self.root.ids.popup_label.text = price_label
             return price_label
-
-
 
         self.experimentHire[added_name] = added_description, added_price
         self.root.ids.newItem.cols = len(self.experimentHire)
