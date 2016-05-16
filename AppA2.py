@@ -4,13 +4,15 @@ from kivy.uix.button import Button
 from kivy.properties import StringProperty
 from item import Item
 from itemlist import ItemList
+
+
 # from Assignment1 import loading_items
 
 
 class ExperimentHire(App, Item, ItemList):
     action_label = StringProperty()
 
-    def __init__(self,**kwargs):
+    def __init__(self, **kwargs):
         """Constructs main app"""
         super(ExperimentHire, self).__init__(**kwargs)
         self.experimentHire = {}
@@ -30,11 +32,10 @@ class ExperimentHire(App, Item, ItemList):
             # """ using the add_widget it adds the button to the ""newItems"""""
             self.root.ids.newItem.add_widget(temp_button)
 
-    def press_entry(self, instance, description):
+    def press_entry(self, instance):
         """handles the pressing of entry buttons"""
         name = instance.text
-
-        self.root.ids.action_label.text = "{} {}  {} Per Day".format(name, description, self.experimentHire[name])
+        self.root.ids.action_label.text = "{}  {} Per Day".format(name,self.experimentHire[name])
         return self.root.ids.action_label.text
 
     def press_add(self):
@@ -72,7 +73,6 @@ class ExperimentHire(App, Item, ItemList):
         # Clears the fields
         self.clear_fields()
 
-
     def clear_fields(self):
         """ Puts empty string in the text input fields from add entry"""
         self.root.ids.addedName.text = ""
@@ -83,9 +83,6 @@ class ExperimentHire(App, Item, ItemList):
         self.root.ids.popup.dismiss()
         self.clear_fields()
         self.action_label = ""
-
-
-
 
 
 
