@@ -1,7 +1,7 @@
 # from Assignment1 import loading_items
 
 
-class ItemList():
+class ItemList:
     def list_items(self):
         label_display = 'Choose action from the left menu, then select items on the right'
         self.root.ids.list_items.text = "List Items"

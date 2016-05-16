@@ -11,36 +11,47 @@ class ExperimentHire(App, Item, ItemList):
     action_label = StringProperty()
 
     def __init__(self, **kwargs):
+        """Constructs main app"""
         super(ExperimentHire, self).__init__(**kwargs)
         self.experimentHire = {}
 
     def build(self):
+        """Builds the Kivy Gui and references to the root Kivy Widget"""
         self.title = "Experiment Hire"
         self.root = Builder.load_file('GUI A2.kv')
         self.create_entry_buttons()
         return self.root
 
     def create_entry_buttons(self):
+        """Constructs the entry buttons and allows the GUI to access them"""
         for name in self.experimentHire:
             temp_button = Button(text=name)
             temp_button.bind(on_release=self.press.entry)
+            # """ using the add_widget it adds the button to the ""newItems"""""
             self.root.ids.newItem.add_widget(temp_button)
 
     def press_entry(self, instance):
+        """handles the pressing of entry buttons"""
         name = instance.text
         self.root.ids.action_label.text = "{}  {} Per Day".format(name, self.experimentHire[name])
 
     def press_add(self):
+        """Handles the pressing of the add buttons, and the display of the label"""
         self.root.ids.popup_label.text = "Enter details for new Item"
+        # this controls the opening of the popup
         self.root.ids.popup.open()
 
     def press_save(self, added_name, added_description, added_price=int):
+        """Saves the new entry to the front page of the GUI, and controls the pressing of the save button """
         name = self.root.ids.addedName.text
         description = self.root.ids.addedDescription.text
         price = self.root.ids.addedPrice.text
         label_display = "All fields must be completed"
         price_label = "Must be a valid number"
-        if name == "" and description == "" and price == "":
+        if name == "" and description == "":
+            self.root.ids.popup_label.text = label_display
+            return label_display
+        if price == "":
             self.root.ids.popup_label.text = label_display
             return label_display
         if price != int(price) and price < 0:
@@ -48,19 +59,25 @@ class ExperimentHire(App, Item, ItemList):
             return price_label
 
         self.experimentHire[added_name] = added_description, added_price
-        self.root.ids.newItem.cols = len(self.experimentHire)
+        # Number columns is depended upon the number of entries
+        self.root.ids.newItem.cols = len(self.experimentHire) // 5 + 1
+        # same function as in function above(create_entry_buttons), new entry button
         temp_button = Button(text=added_name)
         temp_button.bind(on_release=self.press_entry)
         self.root.ids.newItem.add_widget(temp_button)
+        # dismisses the popup closing it
         self.root.ids.popup.dismiss()
+        # Clears the fields
         self.clear_fields()
 
 
     def clear_fields(self):
+        """ Puts empty string in the text input fields from add entry"""
         self.root.ids.addedName.text = ""
         self.root.ids.addedDescription.text = ""
 
     def press_cancel(self):
+        """ handles the pressing for the cancel in the add entry"""
         self.root.ids.popup.dismiss()
         self.clear_fields()
         self.action_label = ""
