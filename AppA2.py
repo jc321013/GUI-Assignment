@@ -10,7 +10,7 @@ from itemlist import ItemList
 class ExperimentHire(App, Item, ItemList):
     action_label = StringProperty()
 
-    def __init__(self, **kwargs):
+    def __init__(self,**kwargs):
         """Constructs main app"""
         super(ExperimentHire, self).__init__(**kwargs)
         self.experimentHire = {}
@@ -30,10 +30,12 @@ class ExperimentHire(App, Item, ItemList):
             # """ using the add_widget it adds the button to the ""newItems"""""
             self.root.ids.newItem.add_widget(temp_button)
 
-    def press_entry(self, instance):
+    def press_entry(self, instance, description):
         """handles the pressing of entry buttons"""
         name = instance.text
-        self.root.ids.action_label.text = "{}  {} Per Day".format(name, self.experimentHire[name])
+
+        self.root.ids.action_label.text = "{} {}  {} Per Day".format(name, description, self.experimentHire[name])
+        return self.root.ids.action_label.text
 
     def press_add(self):
         """Handles the pressing of the add buttons, and the display of the label"""
@@ -54,7 +56,7 @@ class ExperimentHire(App, Item, ItemList):
         if price == "":
             self.root.ids.popup_label.text = label_display
             return label_display
-        if price != int(price) and price < 0:
+        if price != price and price < 0:
             self.root.ids.popup_label.text = price_label
             return price_label
 
