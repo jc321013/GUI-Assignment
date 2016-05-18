@@ -35,7 +35,7 @@ class ExperimentHire(App, Item, ItemList):
     def press_entry(self, instance):
         """handles the pressing of entry buttons"""
         name = instance.text
-        self.root.ids.action_label.text = "{}  {} Per Day".format(name,self.experimentHire[name])
+        self.root.ids.action_label.text = "{} {} Per Day".format(name, self.experimentHire[name])
         return self.root.ids.action_label.text
 
     def press_add(self):
@@ -44,24 +44,21 @@ class ExperimentHire(App, Item, ItemList):
         # this controls the opening of the popup
         self.root.ids.popup.open()
 
-    def press_save(self, added_name, added_description, added_price=int):
+    def press_save(self, added_name, added_description, addedPrice):
         """Saves the new entry to the front page of the GUI, and controls the pressing of the save button """
-        name = self.root.ids.addedName.text
-        description = self.root.ids.addedDescription.text
-        price = self.root.ids.addedPrice.text
         label_display = "All fields must be completed"
         price_label = "Must be a valid number"
-        if name == "" and description == "":
+        if self.root.ids.addedName.text == "" and self.root.ids.addedDescription.text == "":
             self.root.ids.popup_label.text = label_display
             return label_display
-        if price == "":
+        if self.root.ids.addedPrice.text == "":
             self.root.ids.popup_label.text = label_display
             return label_display
-        if price != price and price < 0:
-            self.root.ids.popup_label.text = price_label
-            return price_label
+        # if self.root.ids.addedPrice.text < 0:
+        #     self.root.ids.popup_label.text = price_label
+        #     return price_label
 
-        self.experimentHire[added_name] = added_description, added_price
+        self.experimentHire[added_name] = added_description
         # Number columns is depended upon the number of entries
         self.root.ids.newItem.cols = len(self.experimentHire) // 5 + 1
         # same function as in function above(create_entry_buttons), new entry button
