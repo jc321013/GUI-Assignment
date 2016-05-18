@@ -1,3 +1,9 @@
+""" CP1404 Assignment 2 - 2016
+    ExperimentHire - a GUI kivy app based hiring program
+    Jared Marcolongo
+    27/05/2016
+    https://github.com/jc321013/GUI-Assignment"""
+
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.button import Button
