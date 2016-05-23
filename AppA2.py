@@ -9,13 +9,13 @@ from kivy.lang import Builder
 from kivy.uix.button import Button
 from kivy.properties import StringProperty
 from item import Item
-from itemlist import ItemList
+# from itemlist import ItemList
 
 
 # from Assignment1 import loading_items
 
 
-class ExperimentHire(App, Item, ItemList):
+class ExperimentHire(App, Item):
     action_label = StringProperty()
 
     def __init__(self, **kwargs):
@@ -30,19 +30,47 @@ class ExperimentHire(App, Item, ItemList):
         self.create_entry_buttons()
         return self.root
 
+    def list_items(self):
+        label_display = 'Choose action from the left menu, then select items on the right'
+        self.root.ids.list_items.text = "List Items"
+        self.root.ids.action_label.text = str(label_display)
+        return label_display
+
+    def hiring_item(self):
+        label_display = 'Select available items to hire'
+        self.root.ids.hire_item.text = 'Hire Items'
+        self.root.ids.action_label.text = str(label_display)
+        temp_button = Button(text="Rusty Bucket")
+        if temp_button.bind(on_release=self.root.ids.rusty_bucket):
+            return label_display
+
+
     def create_entry_buttons(self):
         """Constructs the entry buttons and allows the GUI to access them"""
         for name in self.experimentHire:
             temp_button = Button(text=name)
-            temp_button.bind(on_release=self.press.entry)
-            # """ using the add_widget it adds the button to the ""newItems"""""
+            temp_button.bind(on_release=self.press_entry)
+            #  using the add_widget it adds the button to the ""newItems""
             self.root.ids.newItem.add_widget(temp_button)
 
     def press_entry(self, instance):
         """handles the pressing of entry buttons"""
         name = instance.text
-        self.root.ids.action_label.text = "{} {} Per Day".format(name, self.experimentHire[name])
-        return self.root.ids.action_label.text
+        self.root.ids.action_label.text = "{} ${} Per Day".format(name, self.experimentHire[name])
+        # set button state
+        # print(instance.state)
+        instance.state = 'down'
+
+    def item_add(self):
+        """
+        Clear any buttons that have been selected (visually) and reset status text
+        :return: None
+        """
+        # use the .children attribute to access all widgets that are "in" another widget
+        for instance in self.root.ids.newItem.children:
+            instance.state = 'normal'
+        self.action_label = ""
+
 
     def press_add(self):
         """Handles the pressing of the add buttons, and the display of the label"""
@@ -50,21 +78,19 @@ class ExperimentHire(App, Item, ItemList):
         # this controls the opening of the popup
         self.root.ids.popup.open()
 
-    def press_save(self, added_name, added_description, addedPrice):
+    def press_save(self, added_name, added_description, added_price):
         """Saves the new entry to the front page of the GUI, and controls the pressing of the save button """
         label_display = "All fields must be completed"
         price_label = "Must be a valid number"
-        if self.root.ids.addedName.text == "" and self.root.ids.addedDescription.text == "":
+        if added_name == "" or added_description == "" or added_price == "" :
             self.root.ids.popup_label.text = label_display
             return label_display
-        if self.root.ids.addedPrice.text == "":
-            self.root.ids.popup_label.text = label_display
-            return label_display
-        # if self.root.ids.addedPrice.text < 0:
+
+        # if added_price  < 0:
         #     self.root.ids.popup_label.text = price_label
         #     return price_label
 
-        self.experimentHire[added_name] = added_description
+        self.experimentHire[added_name] = added_description, added_price
         # Number columns is depended upon the number of entries
         self.root.ids.newItem.cols = len(self.experimentHire) // 5 + 1
         # same function as in function above(create_entry_buttons), new entry button

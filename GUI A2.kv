@@ -59,10 +59,13 @@ BoxLayout:
                 text: 'Hire Items'
                 id: hire_item
                 on_press: app.hiring_item()
+                on_release: app.item_add()
             Button:
                 text: 'Return Items'
+
             Button:
                 text: 'Confirm'
+                id: itemConfirm
             Button:
                 id: addButton
                 text: 'Add New item'
@@ -94,13 +97,18 @@ BoxLayout:
                     text: 'AeroPress'
                     on_press: app.item_AeroPress()
                     id: aero_press
-                GridLayout:
-                    cols: 1
+                Label:
+                    text: ""
                     id: newItem
+
+
+
+
+
     BoxLayout:
         orientation: 'vertical'
         size_hint_y: 0.1
         Label:
             text_size: self.size
             id: action_label
-            text: 'Choose action from the left menu, then select items on the right'
+            text: app.action_label

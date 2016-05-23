@@ -1,10 +1,4 @@
 class Item:
-    def hiring_item(self):
-        label_display = 'Select available items to hire'
-        self.root.ids.hire_item.text = 'Hire Items'
-        self.root.ids.action_label.text = str(label_display)
-        return label_display
-
     def item_rustyBucket(self):
         label_display = 'Rusty Bucket(40L bucket-quite rusty), $0.00 is in'
         self.root.ids.rusty_bucket.text = 'Rusty Bucket'
