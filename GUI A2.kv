@@ -58,7 +58,7 @@ BoxLayout:
             Button:
                 text: 'Hire Items'
                 id: hire_item
-                on_press: app.hiring_item()
+                on_release: app.hiring_item()
                 on_release: app.item_add()
             Button:
                 text: 'Return Items'
@@ -97,9 +97,11 @@ BoxLayout:
                     text: 'AeroPress'
                     on_press: app.item_AeroPress()
                     id: aero_press
-                Label:
+                GridLayout:
                     text: ""
                     id: newItem
+                    cols: 1
+
 
 
 

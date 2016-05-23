@@ -36,12 +36,13 @@ class ExperimentHire(App, Item):
         self.root.ids.action_label.text = str(label_display)
         return label_display
 
-    def hiring_item(self):
+    def hiring_item(self, instance):
         label_display = 'Select available items to hire'
         self.root.ids.hire_item.text = 'Hire Items'
         self.root.ids.action_label.text = str(label_display)
         temp_button = Button(text="Rusty Bucket")
         if temp_button.bind(on_release=self.root.ids.rusty_bucket):
+            instance.state = 'down'
             return label_display
 
 
