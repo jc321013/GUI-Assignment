@@ -9,19 +9,24 @@ from kivy.lang import Builder
 from kivy.uix.button import Button
 from kivy.properties import StringProperty
 from item import Item
-# from itemlist import ItemList
+from itemlist import ItemList
+from Assignment1 import loading_items
+from Assignment1 import listing_items
+from Assignment1 import saving_items
 
 
-# from Assignment1 import loading_items
-
-
-class ExperimentHire(App, Item):
+class ExperimentHire(App):
     action_label = StringProperty()
 
     def __init__(self, **kwargs):
         """Constructs main app"""
         super(ExperimentHire, self).__init__(**kwargs)
-        self.experimentHire = {}
+        self.experimentHire = ItemList
+        self.experimentHire = []
+
+    def __getattr__(self, item):
+        self.items = item
+        return
 
     def build(self):
         """Builds the Kivy Gui and references to the root Kivy Widget"""
@@ -45,11 +50,15 @@ class ExperimentHire(App, Item):
             instance.state = 'down'
             return label_display
 
+    def confirm_item(self):
+        """
+        :return:
+        """
 
     def create_entry_buttons(self):
         """Constructs the entry buttons and allows the GUI to access them"""
         for name in self.experimentHire:
-            temp_button = Button(text=name)
+            temp_button = Button(text=name[0])
             temp_button.bind(on_release=self.press_entry)
             #  using the add_widget it adds the button to the ""newItems""
             self.root.ids.newItem.add_widget(temp_button)
@@ -57,7 +66,7 @@ class ExperimentHire(App, Item):
     def press_entry(self, instance):
         """handles the pressing of entry buttons"""
         name = instance.text
-        self.root.ids.action_label.text = "{} ${} Per Day".format(name, self.experimentHire[name])
+        self.action_label = "{}, {}, {}".format(name, self.experimentHire[name][0], self.experimentHire[name][1])
         # set button state
         # print(instance.state)
         instance.state = 'down'
@@ -72,29 +81,34 @@ class ExperimentHire(App, Item):
             instance.state = 'normal'
         self.action_label = ""
 
-
     def press_add(self):
         """Handles the pressing of the add buttons, and the display of the label"""
         self.root.ids.popup_label.text = "Enter details for new Item"
         # this controls the opening of the popup
         self.root.ids.popup.open()
 
+    # Saves the new entry to the front page of the GUI, and controls the pressing of the save button
     def press_save(self, added_name, added_description, added_price):
-        """Saves the new entry to the front page of the GUI, and controls the pressing of the save button """
+        self.experimentHire.append(receive_object(added_name, added_description, added_price))
+
         label_display = "All fields must be completed"
         price_label = "Must be a valid number"
-        if added_name == "" or added_description == "" or added_price == "" :
+        if added_name == "" or added_description == "" or added_price == "":
             self.root.ids.popup_label.text = label_display
             return label_display
+        #
+        # while not added_price < 0:
+        #     try:
+        #         if added_price < 0:
+        #             self.root.ids.popup_label = str(price_label)
+        #             return price_label
+        #     except ValueError:
+        #         self.root.ids.popup_label = str(price_label)
+        #         return price_label
 
-        # if added_price  < 0:
-        #     self.root.ids.popup_label.text = price_label
-        #     return price_label
-
-        self.experimentHire[added_name] = added_description, added_price
+        # self.experimentHire[added_name] = added_description, added_price
         # Number columns is depended upon the number of entries
-        self.root.ids.newItem.cols = len(self.experimentHire) // 5 + 1
-        # same function as in function above(create_entry_buttons), new entry button
+        self.root.ids.newItem.cols = len(self.experimentHire)
         temp_button = Button(text=added_name)
         temp_button.bind(on_release=self.press_entry)
         self.root.ids.newItem.add_widget(temp_button)
@@ -107,6 +121,7 @@ class ExperimentHire(App, Item):
         """ Puts empty string in the text input fields from add entry"""
         self.root.ids.addedName.text = ""
         self.root.ids.addedDescription.text = ""
+        self.root.ids.addedPrice.text = ""
 
     def press_cancel(self):
         """ handles the pressing for the cancel in the add entry"""
@@ -115,7 +130,43 @@ class ExperimentHire(App, Item):
         self.action_label = ""
 
 
+def receive_object(name, description, price):
+
+    new_item = []
+    # name = input('Item name: ')
+    # while name == '':
+    #     print('Item name cannot be blank.')
+    #     name = input('Item name: ')
+    new_item.append(name)
+
+    # description = input('Description: ')
+    # while description == '':
+    #     print('Item description cannot be blank.')
+    #     description = input('Description: ')
+    new_item.append(description)
+
+    # price_check = False
+    # while not price_check:
+    #     try:
+    #         price = float(input('Price per day: '))
+    #         if price < 0:
+    #             print("Price must be >= $0")
+    #         else:
+    #             new_item.append(str(price))
+    #             price_check = True
+    #     except ValueError:
+    #         print("Not a valid number")
+    new_item.append(str(price))
+
+    new_item.append('in')
+    # print("{} ({}), ${} now available for hire.".format(new_item[0], new_item[1], new_item[2]))
+    return new_item
+
+
+
+
 
 
 # create and start the App running
+
 ExperimentHire().run()

@@ -58,7 +58,7 @@ BoxLayout:
             Button:
                 text: 'Hire Items'
                 id: hire_item
-                on_release: app.hiring_item()
+
                 on_release: app.item_add()
             Button:
                 text: 'Return Items'
@@ -66,6 +66,7 @@ BoxLayout:
             Button:
                 text: 'Confirm'
                 id: itemConfirm
+                on_press: app.confirm_item()
             Button:
                 id: addButton
                 text: 'Add New item'
@@ -77,25 +78,25 @@ BoxLayout:
                 Button:
                     text: 'Rusty Bucket'
                     id: rusty_bucket
-                    on_press: app.item_rustyBucket()
+
                 Button:
                     text: 'Thermomix'
                     id: thermo_mix
-                    on_press: app.item_thermomix()
+
                 Button:
                     text: 'Guitar'
-                    on_press: app.item_Guitar()
+
                     id: guitar
 
             BoxLayout:
                 orientation: 'vertical'
                 Button:
                     text: 'Golf Cart'
-                    on_press: app.item_golfCart()
+
                     id: golf_cart
                 Button:
                     text: 'AeroPress'
-                    on_press: app.item_AeroPress()
+
                     id: aero_press
                 GridLayout:
                     text: ""
