@@ -47,8 +47,7 @@ class ExperimentHire(App):
         self.root.ids.action_label.text = str(label_display)
         for instance in self.root.ids.hire_item.text:
             temp_button = Button(text=instance)
-            temp_button.bind(on_release=self.hiring_item)
-            self.root.ids.hire_item.add_widget(temp_button)
+            temp_button.bind(on_release=self.hire_item)
         for row in self.root.ids.hire_item.children:
             if row[3] != 'in':
                 instance.state = 'down'
@@ -64,7 +63,23 @@ class ExperimentHire(App):
     def confirm_item(self):
         for item in self.root.ids.hire_item.text:
             temp_button = Button(text=item)
-            temp_button.bind(on_release=self.confirm_item)
+            temp_button.bind(on_release=self.confirmItem)
+
+    def return_item(self):
+        label_display = 'Select Items To Return'
+        self.root.ids.returnItem.text = 'Return Item'
+        self.root.ids.action_label.text = str(label_display)
+        for instance in self.root.ids.returnItem.text:
+            temp_button = Button(text=instance)
+            temp_button.bind(on_release=self.returnItem)
+        for row in self.root.ids.returnItem.children:
+            if row[3] != 'in':
+                instance.state = 'down'
+                return
+            else:
+                if row[3] != 'out':
+                    instance.state = 'normal'
+                    return
 
     def create_entry_buttons(self):
         """Constructs the entry buttons and allows the GUI to access them"""
