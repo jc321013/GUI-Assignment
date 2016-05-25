@@ -41,24 +41,35 @@ class ExperimentHire(App):
         self.root.ids.action_label.text = str(label_display)
         return label_display
 
-    def hiring_item(self, instance):
+    def hiring_item(self):
         label_display = 'Select available items to hire'
         self.root.ids.hire_item.text = 'Hire Items'
         self.root.ids.action_label.text = str(label_display)
-        temp_button = Button(text="Rusty Bucket")
-        if temp_button.bind(on_release=self.root.ids.rusty_bucket):
-            instance.state = 'down'
-            return label_display
+        for instance in self.root.ids.hire_item.text:
+            temp_button = Button(text=instance)
+            temp_button.bind(on_release=self.hiring_item)
+            self.root.ids.hire_item.add_widget(temp_button)
+        for row in self.root.ids.hire_item.children:
+            if row[3] != 'in':
+                instance.state = 'down'
+                return
+            else:
+                if row[3] != 'out':
+                    instance.state = 'normal'
+                    return
+
+        self.action_label = ""
+        return label_display
 
     def confirm_item(self):
-        """
-        :return:
-        """
+        for item in self.root.ids.hire_item.text:
+            temp_button = Button(text=item)
+            temp_button.bind(on_release=self.confirm_item)
 
     def create_entry_buttons(self):
         """Constructs the entry buttons and allows the GUI to access them"""
         for name in self.experimentHire:
-            temp_button = Button(text=name[0])
+            temp_button = Button(text=name)
             temp_button.bind(on_release=self.press_entry)
             #  using the add_widget it adds the button to the ""newItems""
             self.root.ids.newItem.add_widget(temp_button)
@@ -66,7 +77,7 @@ class ExperimentHire(App):
     def press_entry(self, instance):
         """handles the pressing of entry buttons"""
         name = instance.text
-        self.action_label = "{}, {}, {}".format(name, self.experimentHire[name][0], self.experimentHire[name][1])
+        self.action_label = "{}, {}, {}".format(name[0], self.experimentHire[name][1], self.experimentHire[name][2])
         # set button state
         # print(instance.state)
         instance.state = 'down'
