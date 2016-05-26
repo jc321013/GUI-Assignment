@@ -1,6 +1,5 @@
 from item import Item
 
-
 class ItemList:
 
     def __init__(self):
@@ -15,7 +14,6 @@ class ItemList:
 
     def store_items(self, items):
         for item in items:
-            #print(item)
             temp_item = Item(item[0], item[1], float(item[2]), item[3].strip())
             self.items.append(temp_item)
 
@@ -23,7 +21,6 @@ class ItemList:
         temp_list = []
         for item in self.items:
             temp_list.append([item.name, item.description, item.price, item.stock])
-        #print(temp_list)
         return temp_list
 
     def add_item(self, name, description, price, stock):

@@ -21,8 +21,8 @@ class ExperimentHire(App):
 
     action_label = StringProperty()
 
-    # def __init__(self, **kwargs):
-    #     super(ExperimentHire, self).__init__(**kwargs)
+    def __init__(self, **kwargs):
+        super(ExperimentHire, self).__init__(**kwargs)
 
     def build(self):
         self.mode = LIST_MODE
@@ -31,10 +31,53 @@ class ExperimentHire(App):
         self.selected_items = []
         self.item_list.store_items(temp_list)
         self.action_label = "Select a mode on the left side, then select items on the right"
-        self.title = 'Items for Hire'
+        self.title = 'Experiment Hire'
         self.root = Builder.load_file('GUI A2.kv')
         self.create_entry_buttons()
         return self.root
+
+    def listing_items(self):
+        self.mode = LIST_MODE
+        self.selected_items = []
+        self.action_label = "Select a mode on the left side, then select items on the right"
+        self.root.ids.listItems.state = 'down'
+        self.root.ids.hireItem.state = 'normal'
+        self.root.ids.addButton.state = 'normal'
+        self.root.ids.itemConfirm.state = 'normal'
+        self.root.ids.returnItem.state = 'normal'
+
+    def hiring_item(self):
+        self.mode = HIRE_MODE
+        self.selected_items = []
+        self.action_label = 'Select Available Items to Hire'
+        self.root.ids.listItems.state = 'normal'
+        self.root.ids.hireItem.state = 'down'
+        self.root.ids.addButton.state = 'normal'
+        self.root.ids.itemConfirm.state = 'normal'
+        self.root.ids.returnItem.state = 'normal'
+
+    def return_item(self):
+        self.mode = RETURN_MODE
+        self.selected_items = []
+        self.action_label = 'Select available items to return'
+        self.root.ids.listItems.state = 'normal'
+        self.root.ids.hireItem.state = 'normal'
+        self.root.ids.addButton.state = 'normal'
+        self.root.ids.itemConfirm.state = 'normal'
+        self.root.ids.returnItem.state = 'down'
+
+    def confirm_item(self):
+        if self.mode == HIRE_MODE:
+            for item in self.selected_items:
+                item.stock = "out"
+                self.set_button_to_normal()
+            self.listing_items()
+
+        elif self.mode == RETURN_MODE:
+            for item in self.selected_items:
+                item.stock = "in"
+                self.set_button_to_normal()
+            self.listing_items()
 
     def create_entry_buttons(self):
         for item in self.item_list.items:
@@ -76,48 +119,7 @@ class ExperimentHire(App):
         elif self.mode == ADD_MODE:
             pass
 
-    def listing_items(self):
-        self.mode = LIST_MODE
-        self.selected_items = []
-        self.action_label = "Select a mode on the left side, then select items on the right"
-        self.root.ids.listItems.state = 'down'
-        self.root.ids.hireItem.state = 'normal'
-        self.root.ids.addButton.state = 'normal'
-        self.root.ids.itemConfirm.state = 'normal'
-        self.root.ids.returnItem.state = 'normal'
 
-    def hiring_item(self):
-        self.mode = HIRE_MODE
-        self.selected_items = []
-        self.action_label = 'Hiring: no items for $0.0'
-        self.root.ids.listItems.state = 'normal'
-        self.root.ids.hireItem.state = 'down'
-        self.root.ids.addButton.state = 'normal'
-        self.root.ids.itemConfirm.state = 'normal'
-        self.root.ids.returnItem.state = 'normal'
-
-    def return_item(self):
-        self.mode = RETURN_MODE
-        self.selected_items = []
-        self.action_label = 'Select available items to return '
-        self.root.ids.listItems.state = 'normal'
-        self.root.ids.hireItem.state = 'normal'
-        self.root.ids.addButton.state = 'normal'
-        self.root.ids.itemConfirm.state = 'normal'
-        self.root.ids.returnItem.state = 'down'
-
-    def confirm_item(self):
-        if self.mode == HIRE_MODE:
-            for item in self.selected_items:
-                item.stock = "out"
-                self.set_button_to_normal()
-            self.listing_items()
-
-        elif self.mode == RETURN_MODE:
-            for item in self.selected_items:
-                item.stock = "in"
-                self.set_button_to_normal()
-            self.listing_items()
 
     def set_button_to_normal(self):
         for button in self.root.ids.newItem.children:
@@ -151,8 +153,6 @@ class ExperimentHire(App):
 
         try:
             self.item_list.add_item(added_name, added_description, float(added_price), 'in')
-            #after pressing save button, should do error checking on text fields, if all are correct, create a new item
-            #object based on those fields
             self.root.ids.newItem.cols = len(self.item_list.items) // 5 + 1
             new_button = Button(text=added_name)
             new_button.bind(on_release=self.press_entry)
@@ -161,6 +161,10 @@ class ExperimentHire(App):
             self.clear_fields()
         except ValueError:
             self.root.ids.addedPrice.text = ''
+
+        if added_name == "" and added_description == "" and added_price == "":
+            self.root.ids.popup_label.text = "All Fields Must Be Completed"
+    
 
     def on_stop(self):
         save_items(self.item_list.get_items_as_list())
