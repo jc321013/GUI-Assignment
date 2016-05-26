@@ -1,5 +1,6 @@
 from item import Item
 
+# This class has two methods, one for loads and saves the items and another for reutnring the list to the file
 class ItemList:
 
     def __init__(self):

@@ -1,3 +1,5 @@
+
+# This class stores the item
 class Item:
     def __init__(self, name, description, price, stock):
         self.name = name
