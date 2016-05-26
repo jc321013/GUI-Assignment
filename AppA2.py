@@ -47,7 +47,7 @@ class ExperimentHire(App):
         self.root.ids.action_label.text = str(label_display)
         for instance in self.root.ids.hire_item.text:
             temp_button = Button(text=instance)
-            temp_button.bind(on_release=self.hire_item)
+            temp_button.bind(on_release=self.hiring_item)
         for row in self.root.ids.hire_item.children:
             if row[3] != 'in':
                 instance.state = 'down'
@@ -63,7 +63,7 @@ class ExperimentHire(App):
     def confirm_item(self):
         for item in self.root.ids.hire_item.text:
             temp_button = Button(text=item)
-            temp_button.bind(on_release=self.confirmItem)
+            temp_button.bind(on_release=self.hiring_item)
 
     def return_item(self):
         label_display = 'Select Items To Return'
@@ -71,15 +71,15 @@ class ExperimentHire(App):
         self.root.ids.action_label.text = str(label_display)
         for instance in self.root.ids.returnItem.text:
             temp_button = Button(text=instance)
-            temp_button.bind(on_release=self.returnItem)
+            temp_button.bind(on_release=self.return_item)
         for row in self.root.ids.returnItem.children:
             if row[3] != 'in':
                 instance.state = 'down'
                 return
             else:
-                if row[3] != 'out':
+                for instance in self.root.ids.entriesBox.children:
                     instance.state = 'normal'
-                    return
+                self.status_text = ""
 
     def create_entry_buttons(self):
         """Constructs the entry buttons and allows the GUI to access them"""
@@ -122,10 +122,10 @@ class ExperimentHire(App):
         if added_name == "" or added_description == "" or added_price == "":
             self.root.ids.popup_label.text = label_display
             return label_display
-        #
+
         # while not added_price < 0:
         #     try:
-        #         if added_price < 0:
+        #         while added_price < 0:
         #             self.root.ids.popup_label = str(price_label)
         #             return price_label
         #     except ValueError:

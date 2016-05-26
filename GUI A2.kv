@@ -47,70 +47,40 @@ BoxLayout:
                 text: app.action_label
                 id: popup_label
     BoxLayout:
-        orientation: 'horizontal'
-        BoxLayout:
-            size_hint_x: 0.4
-            orientation: 'vertical'
-            Button:
-                text: 'List Items'
-                id: list_items
-                on_press: app.list_items()
-            Button:
-                text: 'Hire Items'
-                id: hire_item
-                on_press: app.hiring_item()
-                on_release: app.item_add()
-            Button:
-                text: 'Return Items'
-                id: returnItem
-                on_press: app.return_item()
-
-            Button:
-                text: 'Confirm'
-                id: itemConfirm
-                on_press: app.confirm_item()
-            Button:
-                id: addButton
-                text: 'Add New item'
-                on_release: app.press_add()
-
-        BoxLayout:
-            BoxLayout:
-                orientation: 'vertical'
-                Button:
-                    text: 'Rusty Bucket'
-                    id: rusty_bucket
-
-                Button:
-                    text: 'Thermomix'
-                    id: thermo_mix
-
-                Button:
-                    text: 'Guitar'
-                    id: guitar
-
-            BoxLayout:
-                orientation: 'vertical'
-                Button:
-                    text: 'Golf Cart'
-                    id: golf_cart
-                Button:
-                    text: 'AeroPress'
-                    id: aero_press
-                GridLayout:
-                    text: ""
-                    id: newItem
-                    cols: 1
-
-
-
-
-
-
-    BoxLayout:
         orientation: 'vertical'
-        size_hint_y: 0.1
+        BoxLayout:
+            orientation: 'horizontal'
+            BoxLayout:
+                orientation: 'vertical'
+                size_hint_x: 0.4
+                Button:
+                    text: 'List Items'
+                    id: list_items
+                    state: 'down'
+                    on_release: app.list_items()
+                Button:
+                    text: 'Hire Items'
+                    id: hire_item
+                    on_release: app.hiring_item()
+                Button:
+                    text: 'Return Items'
+                    id: returnItem
+                    on_release: app.return_item()
+                Button:
+                    text: 'Confirm'
+                    id: itemConfirm
+                    on_release: app.confirm_item()
+                Button:
+                    id: addButton
+                    text: 'Add New item'
+                    on_release: app.press_add()
+                GridLayout:
+                    orientation: 'vertical'
+                    text: ""
+                    id: experiment_hire
+                    cols: 2
         Label:
+            size_hint_y: 0.1
             text_size: self.size
             id: action_label
             text: app.action_label
