@@ -18,7 +18,6 @@ Add_Items = 3
 
 
 class ExperimentHire(App):
-
     action_label = StringProperty()
 
     def __init__(self, **kwargs):
@@ -37,6 +36,7 @@ class ExperimentHire(App):
         self.create_entry_buttons()
         return self.root
 
+    # This function controls the status display of the items
     def listing_items(self):
         self.mode = List_Items
         self.selected_items = []
@@ -47,6 +47,7 @@ class ExperimentHire(App):
         self.root.ids.itemConfirm.state = 'normal'
         self.root.ids.returnItem.state = 'normal'
 
+    # This function controls when the user wants to hire out an item, it passes it through the confirm button andthen deselects it from the GUI making it unavailable. It can only hire out items that are available
     def hiring_item(self):
         self.mode = Hire_Items
         self.selected_items = []
@@ -57,6 +58,7 @@ class ExperimentHire(App):
         self.root.ids.itemConfirm.state = 'normal'
         self.root.ids.returnItem.state = 'normal'
 
+    # This function controls when the user wants to return out an item, it passes it through the confirm button and then you are able to select unavailable items it from the GUI making them available
     def return_item(self):
         self.mode = Return_Items
         self.selected_items = []
@@ -67,6 +69,7 @@ class ExperimentHire(App):
         self.root.ids.itemConfirm.state = 'normal'
         self.root.ids.returnItem.state = 'down'
 
+    # This function controls the hiring and return fucntions, if items are 'out' you can return them, if items are 'in' you can hire them
     def confirm_item(self):
         if self.mode == Hire_Items:
             for item in self.selected_items:
@@ -90,12 +93,13 @@ class ExperimentHire(App):
             self.root.ids.newItem.add_widget(temp_button)
 
     # updates the button status reloading if the button selected is in or out and passes them
-    def button_status(self,status):
+    def button_status(self, status):
         while status != 'in' or 'out':
             if status == 'in':
                 pass
             elif status == 'out':
                 pass
+
     # Handles the entry buttons pressing and updates the status text
     def press_entry(self, instance):
         item = self.item_list.get_item(instance.text)
@@ -124,7 +128,6 @@ class ExperimentHire(App):
         elif self.mode == Add_Items:
             pass
 
-
     # Sets the button status back to normal after being selected
     def set_button_to_normal(self):
         # uses the .children attribute to access all widgets that are located in another widget
@@ -133,7 +136,8 @@ class ExperimentHire(App):
             self.selected_items = []
 
 
-     # Handles the add button, and opens up the pop up window
+            # Handles the add button, and opens up the pop up window
+
     def press_add(self):
         self.mode = Add_Items
         self.selected_items = []
@@ -147,7 +151,8 @@ class ExperimentHire(App):
         self.root.ids.popup.open()
         pass
 
-     # clears any button that has been selected by user and reset the status text
+        # clears any button that has been selected by user and reset the status text
+
     def clear_fields(self):
         # if this function is not completed, the popup will continue to have text in the fields after submission
         self.root.ids.addedName.text = ""
@@ -181,6 +186,7 @@ class ExperimentHire(App):
     # after the GUI is closed this saves the created items to the list
     def on_stop(self):
         save_items(self.item_list.get_items_as_list())
+
 
 # runs the main program
 ExperimentHire().run()
