@@ -172,6 +172,7 @@ class ExperimentHire(App):
         # changes the number of columns based on the number of entries
         try:
             self.list_item.add_item(added_name, added_description, float(added_price), 'in')
+            # number of entries
             self.root.ids.newItem.cols = len(self.list_item.items) // 5 + 1
             # add button for new entry
             new_button = Button(text=added_name)
