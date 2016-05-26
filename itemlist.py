@@ -13,7 +13,7 @@ class ItemList:
                 return item
         return None
 
-    def store_items(self, items):
+    def save_items(self, items):
         for item in items:
             temp_item = Item(item[0], item[1], float(item[2]), item[3].strip())
             self.items.append(temp_item)
