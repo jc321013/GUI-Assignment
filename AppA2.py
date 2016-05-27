@@ -60,6 +60,8 @@ class ExperimentHire(App):
         self.root.ids.itemConfirm.state = 'normal'
         self.root.ids.returnItem.state = 'normal'
 
+
+
     # This function controls when the user wants to return out an item, it passes it through the confirm button and then you are able to select unavailable items it from the GUI making them available
     def return_item(self):
         statuslabel = 'Select available items to return'
@@ -72,19 +74,35 @@ class ExperimentHire(App):
         self.root.ids.itemConfirm.state = 'normal'
         self.root.ids.returnItem.state = 'down'
 
+
     # This function controls the hiring and return fucntions, if items are 'out' you can return them, if items are 'in' you can hire them
     def confirm_item(self):
         if self.mode == Hire_Items:
             for item in self.item_listing:
                 item.stock = "out"
                 self.set_button_to_normal()
-            self.listing_items()
+                self.listing_items()
 
         elif self.mode == Return_Items:
             for item in self.item_listing:
                 item.stock = "in"
                 self.set_button_to_normal()
+                # self.item_listing.state = 'normal'
             self.listing_items()
+
+        for self.item in self.item_listing:
+            if self.item.stock == "in":
+                self.item.state = 'down'
+                for button in self.root.ids.newItem.children:
+                    button.state = 'down'
+                    self.item_listing = []
+            elif self.item.stock == "in":
+                self.item.state = 'normal'
+                for button in self.root.ids.newItem.children:
+                    button.state = 'normal'
+                    self.item_listing = []
+
+
 
     # Creates the entry button and then adds it to the GUI Kivy
     def create_entry_buttons(self):
@@ -139,6 +157,8 @@ class ExperimentHire(App):
             self.item_listing = []
 
 
+
+
     # Handles the add button, and opens up the pop up window
     def press_add(self):
         self.mode = Add_Items
@@ -171,6 +191,10 @@ class ExperimentHire(App):
     def press_save(self, added_name, added_description, added_price):
         # changes the number of columns based on the number of entries
         try:
+            if added_name == "" or added_description == "" or added_price == "":
+                self.root.ids.popup_label.text = "All Fields Must Be Completed"
+            if float(added_price) < 0:
+                self.root.ids.popup_label.text = "Must Be a Valid Number"
             self.list_item.add_item(added_name, added_description, float(added_price), 'in')
             # number of entries
             self.root.ids.newItem.cols = len(self.list_item.items) // 5 + 1
@@ -183,12 +207,17 @@ class ExperimentHire(App):
         except ValueError:
             self.root.ids.addedPrice.text = ''
         # creates an error check if the fields are empty
-        if added_name == "" or added_description == "" or added_price == "":
-            self.root.ids.popup_label.text = "All Fields Must Be Completed"
+
+
+
+
+
 
     # after the GUI is closed this saves the created items to the list
     def on_stop(self):
         save_items(self.list_item.get_items_as_list())
+
+
 
 
 # runs the main program

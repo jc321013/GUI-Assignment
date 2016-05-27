@@ -74,10 +74,13 @@ BoxLayout:
                     id: addButton
                     text: 'Add New item'
                     on_release: app.press_add()
+
             GridLayout:
                 orientation: 'vertical'
                 id: newItem
                 cols: 2
+
+
         Label:
             size_hint_y: 0.1
             text_size: self.size
